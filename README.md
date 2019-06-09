@@ -5,14 +5,7 @@ features outside the official
 [Amazon S3 REST APIs](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html).
 Note that these are not consistently supported across implementations.
 
-## APIs
-
-### GET bucket unordered
-
-`allow-unordered=true` parameter overrides key sorting which allows higher
-performance with large buckets.  Cannot be used with delimiter.
-
-* [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/bucketops/#get-bucket)
+## Amazon APIs
 
 ### GET object by multipart number
 
@@ -23,6 +16,23 @@ individual multipart upload parts, including the original ETag.
 
 * [AWS Java SDK partNumber](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/GetObjectMetadataRequest.html#withPartNumber-java.lang.Integer-)
 * [AWS Java SDK x-amz-mp-parts-count](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/ObjectMetadata.html#getPartCount--)
+
+### Multipart Upload ETag
+
+Single part upload ETag are the MD5 hash of the object content.  Multipart
+upload ETag concatenate the MD5 of each part, MD5 this data, and append a
+hyphen and the number of parts.
+
+* [Stack Overflow answer](https://stackoverflow.com/questions/12186993/what-is-the-algorithm-to-compute-the-amazon-s3-etag-for-a-file-larger-than-5gb)
+
+## Third-party APIs
+
+### GET bucket unordered
+
+`allow-unordered=true` parameter overrides key sorting which allows higher
+performance with large buckets.  Cannot be used with delimiter.
+
+* [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/bucketops/#get-bucket)
 
 ### HEAD bucket extended
 
@@ -54,14 +64,6 @@ Content-Length and Content-Range headers.  Continuing issuing these requests to
 build larger objects.
 
 * [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/resumable-upload)
-
-### Multipart Upload ETag
-
-Single part upload ETag are the MD5 hash of the object content.  Multipart
-upload ETag concatenate the MD5 of each part, MD5 this data, and append a
-hyphen and the number of parts.
-
-* [Stack Overflow answer](https://stackoverflow.com/questions/12186993/what-is-the-algorithm-to-compute-the-amazon-s3-etag-for-a-file-larger-than-5gb)
 
 ## References
 
