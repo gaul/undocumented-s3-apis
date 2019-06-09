@@ -17,6 +17,12 @@ individual multipart upload parts, including the original ETag.
 * [AWS Java SDK partNumber](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/GetObjectMetadataRequest.html#withPartNumber-java.lang.Integer-)
 * [AWS Java SDK x-amz-mp-parts-count](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/model/ObjectMetadata.html#getPartCount--)
 
+### HEAD bucket exposes region
+
+HEAD bucket exposes the region via `x-amz-bucket-region` even if the request
+lacks authentication.  This allows clients to interrogate a bucket so that they
+can route subsequent requests to the correct endpoint.
+
 ### Multipart Upload ETag
 
 Single part upload ETag are the MD5 hash of the object content.  Multipart
