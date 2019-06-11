@@ -50,8 +50,8 @@ headers.
 ### PUT object append
 
 Append to an existing object at a given offset via the `append` and `position`
-parameters.  Responses include `x-oss-next-append-position` and which indicate
-the next valid append offset.
+parameters.  Responses include `x-oss-next-append-position` and
+`x-rgw-next-append-position` which indicate the next valid append offset.
 
 * [Aliyun documentation](https://partners-intl.aliyun.com/help/doc-detail/31981.htm?spm=a2c63.p38356.b99.595.5783438dGk)
 * [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/objectops/#append-object)
