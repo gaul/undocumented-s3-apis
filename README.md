@@ -58,9 +58,12 @@ parameters.  Responses include `x-oss-next-append-position` and
 
 ### PUT object conditional
 
-`If-Match` and `If-None-Match` headers allow atomic replacement of objects.
+`If-Match` and `If-None-Match` (Ceph) and `x-goog-if-generation-match` and
+`x-goog-if-metageneration-match` (Google) headers allow atomic replacement of
+objects.
 
 * [Ceph feature #8562](https://tracker.ceph.com/issues/8562)
+* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/generations-preconditions#_XMLAPI)
 
 ### Resumable uploads
 
