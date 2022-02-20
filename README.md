@@ -74,6 +74,14 @@ build larger objects.
 
 * [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/resumable-upload)
 
+### Small file archives
+
+Allows interaction with ZIP file contents as if they were objects.  HeadObject,
+GetObject, and ListObjectsV2 support these operations when the header
+`x-minio-extract` has a `true` value.
+
+* [Minio documentation](https://blog.min.io/small-file-archives/)
+
 ## References
 
 * [Aliyun API documentation](https://partners-intl.aliyun.com/help/doc-detail/31947.htm?spm=a2c63.p38356.b99.563.3d3152e7qsZxhf)
