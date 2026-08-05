@@ -57,7 +57,7 @@ declaring the searchable keys on the bucket.
 `allow-unordered=true` parameter overrides key sorting which allows higher
 performance with large buckets.  Cannot be used with delimiter.
 
-* [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/bucketops/#get-bucket)
+* [Ceph documentation](https://docs.ceph.com/en/latest/radosgw/s3/bucketops/#get-bucket)
 
 ### GET bucket with metadata
 
@@ -76,7 +76,7 @@ rather than opaque strings and metageneration counts metadata changes
 separately, resetting when the content is replaced.  `generation-marker`
 paginates version listings.
 
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/object-versioning)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/object-versioning)
 
 ### GET object media processing
 
@@ -97,7 +97,7 @@ checksums.  `x-goog-stored-content-length` and `x-goog-stored-content-encoding`
 report what is actually stored.  `Accept-Encoding: gzip` or a `no-transform`
 `Cache-Control` serves the stored bytes instead.
 
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/transcoding)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/transcoding)
 
 ### GET service pagination
 
@@ -116,7 +116,7 @@ equivalent of `cf-start-after`.
 unless the account has a default project for interoperable access.  Amazon
 scopes these to the credentials instead.
 
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/get-service)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/xml-api/get-service)
 
 ### HEAD bucket extended
 
@@ -133,7 +133,7 @@ headers.  Newer Ceph returns these only when the request includes the
 validates on upload and returns on download.  Only CRC32C is available for
 multipart uploads.
 
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/data-validation)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/data-validation)
 
 ### PUT object append
 
@@ -145,10 +145,10 @@ returning the resulting size via `x-amz-object-size`, although only for the S3
 Express One Zone storage class in directory buckets.  Dell appends via a
 `Range` header instead.
 
-* [Aliyun documentation](https://partners-intl.aliyun.com/help/doc-detail/31981.htm?spm=a2c63.p38356.b99.595.5783438dGk)
-* [Amazon append](https://aws.amazon.com/about-aws/whats-new/2024/11/amazon-s3-express-one-zone-append-data-object)
+* [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/appendobject)
+* [Amazon append](https://aws.amazon.com/about-aws/whats-new/2024/11/amazon-s3-express-one-zone-append-data-object/)
 * [Amazon PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-* [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/objectops/#append-object)
+* [Ceph documentation](https://docs.ceph.com/en/latest/radosgw/s3/objectops/#append-object)
 
 ### PUT object byte range
 
@@ -181,10 +181,10 @@ while Ceph also accepts an ETag, and Google conditions on the object generation
 and metageneration instead of the ETag.
 
 * [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/prevent-objects-from-being-overwritten-by-objects-that-have-the-same-names-4)
-* [Amazon conditional writes](https://aws.amazon.com/about-aws/whats-new/2024/08/amazon-s3-conditional-writes)
-* [Amazon conditional deletes](https://aws.amazon.com/about-aws/whats-new/2025/09/amazon-s3-conditional-deletes-s3-general-purpose-buckets)
+* [Amazon conditional writes](https://aws.amazon.com/about-aws/whats-new/2024/08/amazon-s3-conditional-writes/)
+* [Amazon conditional deletes](https://aws.amazon.com/about-aws/whats-new/2025/09/amazon-s3-conditional-deletes-s3-general-purpose-buckets/)
 * [Ceph feature #8562](https://tracker.ceph.com/issues/8562)
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/generations-preconditions#_XMLAPI)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/request-preconditions)
 * [Tencent documentation](https://www.tencentcloud.com/document/product/436/7749)
 
 ### PUT object copy conditional
@@ -212,7 +212,7 @@ the keys present in the request, unlike the all-or-nothing `COPY` and
 `x-goog-copy-source-if-metageneration-match` condition the copy on the source
 version rather than on its ETag.
 
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/reference-headers)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/xml-api/reference-headers)
 
 ### PUT object create bucket
 
@@ -231,7 +231,7 @@ accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
 `X-Amz-Meta-Minio-Snowball-Ignore-Dirs` skips empty directory objects, and
 `X-Amz-Meta-Minio-Snowball-Ignore-Errors` continues past individual failures.
 
-* [Minio blog](https://min.io/blog/minio-optimizes-small-objects)
+* [Minio blog](https://www.min.io/blog/minio-optimizes-small-objects)
 
 ### PUT object symlink
 
@@ -256,7 +256,7 @@ header.  Use the response `Location` to issue a PUT object with given
 Content-Length and Content-Range headers.  Continuing issuing these requests to
 build larger objects.
 
-* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/resumable-upload)
+* [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/resumable-uploads)
 
 ### Small file archives
 
@@ -264,11 +264,11 @@ Allows interaction with ZIP file contents as if they were objects.  HeadObject,
 GetObject, and ListObjectsV2 support these operations when the header
 `x-minio-extract` has a `true` value.
 
-* [Minio documentation](https://blog.min.io/small-file-archives/)
+* [Minio documentation](https://www.min.io/blog/small-file-archives)
 
 ## References
 
-* [Aliyun API documentation](https://partners-intl.aliyun.com/help/doc-detail/31947.htm?spm=a2c63.p38356.b99.563.3d3152e7qsZxhf)
+* [Aliyun API documentation](https://partners-intl.aliyun.com/help/en/doc-detail/31947.htm)
 * [Amazon API documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-* [Ceph API documentation](http://docs.ceph.com/docs/master/radosgw/s3/)
-* [Google API documentation](https://cloud.google.com/storage/docs/xml-api/overview)
+* [Ceph API documentation](https://docs.ceph.com/en/latest/radosgw/s3/)
+* [Google API documentation](https://docs.cloud.google.com/storage/docs/xml-api/overview)
