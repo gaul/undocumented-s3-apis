@@ -60,10 +60,19 @@ parameters.  Responses include `x-oss-next-append-position` and
 
 `If-Match` and `If-None-Match` (Ceph) and `x-goog-if-generation-match` and
 `x-goog-if-metageneration-match` (Google) headers allow atomic replacement of
-objects.
+objects.  `x-oss-forbid-overwrite` (Aliyun) and `x-cos-forbid-overwrite`
+(Tencent) forbid overwriting an existing object.  Amazon standardized part of
+this in August 2024 for PUT object and complete multipart upload and in
+September 2025 for DELETE object.  Amazon `If-None-Match` accepts only `*`
+while Ceph also accepts an ETag, and Google conditions on the object generation
+and metageneration instead of the ETag.
 
+* [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/prevent-objects-from-being-overwritten-by-objects-that-have-the-same-names-4)
+* [Amazon conditional writes](https://aws.amazon.com/about-aws/whats-new/2024/08/amazon-s3-conditional-writes)
+* [Amazon conditional deletes](https://aws.amazon.com/about-aws/whats-new/2025/09/amazon-s3-conditional-deletes-s3-general-purpose-buckets)
 * [Ceph feature #8562](https://tracker.ceph.com/issues/8562)
 * [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/generations-preconditions#_XMLAPI)
+* [Tencent documentation](https://www.tencentcloud.com/document/product/436/7749)
 
 ### Resumable uploads
 
