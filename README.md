@@ -108,6 +108,16 @@ parameters.  Responses include `x-oss-next-append-position` and
 * [Aliyun documentation](https://partners-intl.aliyun.com/help/doc-detail/31981.htm?spm=a2c63.p38356.b99.595.5783438dGk)
 * [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/objectops/#append-object)
 
+### PUT object byte range
+
+`Range` header on PUT modifies part of an object instead of replacing it:
+`bytes=10-14` updates that range, `bytes=10-` overwrites from that offset, and
+`bytes=-1-` atomically appends without knowing the current size.  Responses
+include `x-emc-previous-object-size` and `x-emc-content-md5`.  This differs
+from the `?append&position=` model which Aliyun and Ceph use.
+
+* [Dell documentation](https://portal.ecstestdrive.com/Document/ECS/3.8/apidocs/S3ObjectOperations_createOrUpdateObject_7916bd6f789d0ae0ff39961c0e660d00_ba672412ac371bb6cf4e69291344510e_detail.html)
+
 ### PUT object conditional
 
 `If-Match` and `If-None-Match` (Ceph) and `x-goog-if-generation-match` and
