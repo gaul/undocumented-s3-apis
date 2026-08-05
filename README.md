@@ -33,6 +33,15 @@ hyphen and the number of parts.
 
 ## Third-party APIs
 
+### DELETE bucket force
+
+`x-minio-force-delete: true` header deletes a bucket and its contents, which
+Minio implements by renaming the bucket rather than deleting each object.
+Requires the separate `ForceDeleteBucketAction` permission and rejects buckets
+with object lock or active replication rules.
+
+* [Minio discussion #20367](https://github.com/minio/minio/discussions/20367)
+
 ### GET bucket unordered
 
 `allow-unordered=true` parameter overrides key sorting which allows higher
