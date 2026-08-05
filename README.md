@@ -25,9 +25,9 @@ can route subsequent requests to the correct endpoint.
 
 ### Multipart upload ETag
 
-Single part upload ETag are the MD5 hash of the object content.  Multipart
-upload ETag concatenate the MD5 of each part, MD5 this data, and append a
-hyphen and the number of parts.
+A single part upload ETag is the MD5 hash of the object content.  A multipart
+upload ETag concatenates the MD5 of each part, hashes this data with MD5, and
+appends a hyphen and the number of parts.
 
 * [Stack Overflow answer](https://stackoverflow.com/questions/12186993/what-is-the-algorithm-to-compute-the-amazon-s3-etag-for-a-file-larger-than-5gb)
 
@@ -55,7 +55,7 @@ declaring the searchable keys on the bucket.
 ### GET bucket unordered
 
 Ceph `allow-unordered=true` parameter overrides key sorting which allows
-higher performance with large buckets.  Cannot be used with delimiter.
+higher performance with large buckets.  Cannot be used with a delimiter.
 
 * [Ceph documentation](https://docs.ceph.com/en/latest/radosgw/s3/bucketops/#get-bucket)
 
@@ -252,9 +252,9 @@ which Amazon leaves unspecified.
 
 ### Resumable uploads
 
-Initiate a Google resumable upload with POST object with the `x-goog-resumable`
+Initiate a Google resumable upload via POST object with the `x-goog-resumable`
 header.  Use the response `Location` to issue a PUT object with given
-Content-Length and Content-Range headers.  Continuing issuing these requests to
+Content-Length and Content-Range headers.  Continue issuing these requests to
 build larger objects.
 
 * [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/resumable-uploads)
