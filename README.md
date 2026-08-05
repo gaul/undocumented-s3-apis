@@ -35,8 +35,8 @@ appends a hyphen and the number of parts.
 
 ### DELETE bucket force
 
-`x-minio-force-delete: true` header deletes a bucket and its contents, which
-MinIO implements by renaming the bucket rather than deleting each object.
+MinIO `x-minio-force-delete: true` header deletes a bucket and its contents,
+which it implements by renaming the bucket rather than deleting each object.
 Requires the separate `ForceDeleteBucketAction` permission and rejects buckets
 with object lock or active replication rules.
 
@@ -129,8 +129,8 @@ headers.  Newer versions return these only when the request includes the
 
 ### Object checksums
 
-`x-goog-hash` header carries `crc32c=` and `md5=` base64 values which Google
-validates on upload and returns on download.  Only CRC32C is available for
+Google `x-goog-hash` header carries `crc32c=` and `md5=` base64 values which
+it validates on upload and returns on download.  Only CRC32C is available for
 multipart uploads.
 
 * [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/data-validation)
@@ -163,10 +163,10 @@ from the `?append&position=` model which Aliyun and Ceph use.
 
 ### PUT object callback
 
-`x-oss-callback` and `x-oss-callback-var` headers carry base64-encoded JSON
-which makes OSS POST to an application server after a successful upload and
-return that server's response to the client instead of its own.  PUT object,
-POST object, and complete multipart upload accept these.
+Aliyun `x-oss-callback` and `x-oss-callback-var` headers carry base64-encoded
+JSON which makes OSS POST to an application server after a successful upload
+and return that server's response to the client instead of its own.  PUT
+object, POST object, and complete multipart upload accept these.
 
 * [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/callback)
 
