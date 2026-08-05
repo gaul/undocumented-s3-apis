@@ -92,6 +92,17 @@ and metageneration instead of the ETag.
 * [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/generations-preconditions#_XMLAPI)
 * [Tencent documentation](https://www.tencentcloud.com/document/product/436/7749)
 
+### PUT object extract
+
+`X-Amz-Meta-Snowball-Auto-Extract: true` header unpacks an uploaded tar archive
+into individual objects rather than storing the archive itself.  Minio also
+accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
+`X-Amz-Meta-Minio-Snowball-Prefix` prefixes the extracted keys,
+`X-Amz-Meta-Minio-Snowball-Ignore-Dirs` skips empty directory objects, and
+`X-Amz-Meta-Minio-Snowball-Ignore-Errors` continues past individual failures.
+
+* [Minio blog](https://min.io/blog/minio-optimizes-small-objects)
+
 ### Resumable uploads
 
 Initiate a resumable upload with POST object with the `x-goog-resumable`
