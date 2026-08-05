@@ -68,6 +68,16 @@ caller lacks permission to read.
 
 * [Minio SDK documentation](https://pkg.go.dev/github.com/minio/minio-go/v7#ListObjectsOptions)
 
+### GET object generation
+
+`generation` parameter selects an object version while `x-goog-generation` and
+`x-goog-metageneration` responses identify it.  Generations are large integers
+rather than opaque strings and metageneration counts metadata changes
+separately, resetting when the content is replaced.  `generation-marker`
+paginates version listings.
+
+* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/object-versioning)
+
 ### GET object media processing
 
 `x-oss-process` (Aliyun), `ci-process` (Tencent), and `x-image-process`
@@ -78,6 +88,16 @@ caller lacks permission to read.
 * [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/compatibility-with-amazon-s3)
 * [Huawei documentation](https://support.huaweicloud.com/intl/en-us/fg-obs/obs_01_0670.html)
 * [Tencent documentation](https://www.tencentcloud.com/document/product/436/35280)
+
+### GET object transcoded
+
+Decompresses objects stored with `Content-Encoding: gzip`, omitting
+`Content-Length` and `Content-Encoding` from the response and invalidating
+checksums.  `x-goog-stored-content-length` and `x-goog-stored-content-encoding`
+report what is actually stored.  `Accept-Encoding: gzip` or a `no-transform`
+`Cache-Control` serves the stored bytes instead.
+
+* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/transcoding)
 
 ### GET service pagination
 
@@ -90,6 +110,14 @@ equivalent of `cf-start-after`.
 
 * [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
 
+### GET service project
+
+`x-goog-project-id` header scopes listing and creating buckets to a project
+unless the account has a default project for interoperable access.  Amazon
+scopes these to the credentials instead.
+
+* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/get-service)
+
 ### HEAD bucket extended
 
 Returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
@@ -98,6 +126,14 @@ headers.  Newer Ceph returns these only when the request includes the
 
 * [Ceph feature #2313](https://tracker.ceph.com/issues/2313)
 * [Ceph pull request #56756](https://github.com/ceph/ceph/pull/56756)
+
+### Object checksums
+
+`x-goog-hash` header carries `crc32c=` and `md5=` base64 values which Google
+validates on upload and returns on download.  Only CRC32C is available for
+multipart uploads.
+
+* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/data-validation)
 
 ### PUT object append
 
@@ -161,6 +197,16 @@ the keys present in the request, unlike the all-or-nothing `COPY` and
 `REPLACE`.
 
 * [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
+
+### PUT object copy source
+
+`x-goog-copy-source` header names the source object while
+`x-goog-copy-source-generation` selects its version.
+`x-goog-copy-source-if-generation-match` and
+`x-goog-copy-source-if-metageneration-match` condition the copy on the source
+version rather than on its ETag.
+
+* [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/xml-api/reference-headers)
 
 ### PUT object create bucket
 
