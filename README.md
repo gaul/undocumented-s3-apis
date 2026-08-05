@@ -54,27 +54,27 @@ declaring the searchable keys on the bucket.
 
 ### GET bucket unordered
 
-`allow-unordered=true` parameter overrides key sorting which allows higher
-performance with large buckets.  Cannot be used with delimiter.
+Ceph `allow-unordered=true` parameter overrides key sorting which allows
+higher performance with large buckets.  Cannot be used with delimiter.
 
 * [Ceph documentation](https://docs.ceph.com/en/latest/radosgw/s3/bucketops/#get-bucket)
 
 ### GET bucket with metadata
 
-`metadata=true` parameter includes each object's user metadata in the listing
-via `UserMetadata` elements, avoiding a HEAD object request per key.  Minio
-strips its internal reserved keys and omits the metadata for objects which the
+Minio `metadata=true` parameter includes each object's user metadata in the
+listing via `UserMetadata` elements, avoiding a HEAD object request per key.
+It strips internal reserved keys and omits the metadata for objects which the
 caller lacks permission to read.
 
 * [Minio SDK documentation](https://pkg.go.dev/github.com/minio/minio-go/v7#ListObjectsOptions)
 
 ### GET object generation
 
-`generation` parameter selects an object version while `x-goog-generation` and
-`x-goog-metageneration` responses identify it.  Generations are large integers
-rather than opaque strings and metageneration counts metadata changes
-separately, resetting when the content is replaced.  `generation-marker`
-paginates version listings.
+Google `generation` parameter selects an object version while
+`x-goog-generation` and `x-goog-metageneration` responses identify it.
+Generations are large integers rather than opaque strings and metageneration
+counts metadata changes separately, resetting when the content is replaced.
+`generation-marker` paginates version listings.
 
 * [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/object-versioning)
 
@@ -91,7 +91,7 @@ paginates version listings.
 
 ### GET object transcoded
 
-Decompresses objects stored with `Content-Encoding: gzip`, omitting
+Google decompresses objects stored with `Content-Encoding: gzip`, omitting
 `Content-Length` and `Content-Encoding` from the response and invalidating
 checksums.  `x-goog-stored-content-length` and `x-goog-stored-content-encoding`
 report what is actually stored.  `Accept-Encoding: gzip` or a `no-transform`
@@ -101,9 +101,9 @@ report what is actually stored.  `Accept-Encoding: gzip` or a `no-transform`
 
 ### GET service pagination
 
-`cf-prefix`, `cf-start-after`, `cf-continuation-token`, and `cf-max-keys`
-headers paginate the bucket listing and take precedence over the equivalent
-parameters.  Responses include `cf-is-truncated` and
+Cloudflare `cf-prefix`, `cf-start-after`, `cf-continuation-token`, and
+`cf-max-keys` headers paginate the bucket listing and take precedence over the
+equivalent parameters.  Responses include `cf-is-truncated` and
 `cf-next-continuation-token`.  Amazon later added `prefix`,
 `continuation-token`, `max-buckets`, and `bucket-region` parameters but has no
 equivalent of `cf-start-after`.
@@ -112,16 +112,16 @@ equivalent of `cf-start-after`.
 
 ### GET service project
 
-`x-goog-project-id` header scopes listing and creating buckets to a project
-unless the account has a default project for interoperable access.  Amazon
-scopes these to the credentials instead.
+Google `x-goog-project-id` header scopes listing and creating buckets to a
+project unless the account has a default project for interoperable access.
+Amazon scopes these to the credentials instead.
 
 * [Google Cloud Storage documentation](https://docs.cloud.google.com/storage/docs/xml-api/get-service)
 
 ### HEAD bucket extended
 
-Returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
-headers.  Newer Ceph returns these only when the request includes the
+Ceph returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
+headers.  Newer versions return these only when the request includes the
 `read-stats` parameter, since computing them reads every bucket index shard.
 
 * [Ceph feature #2313](https://tracker.ceph.com/issues/2313)
@@ -137,9 +137,10 @@ multipart uploads.
 
 ### PUT object append
 
-Append to an existing object at a given offset via the `append` and `position`
-parameters.  Responses include `x-oss-next-append-position` and
-`x-rgw-next-append-position` which indicate the next valid append offset.
+Aliyun and Ceph append to an existing object at a given offset via the
+`append` and `position` parameters.  Responses include
+`x-oss-next-append-position` and `x-rgw-next-append-position` which indicate
+the next valid append offset.
 Amazon added this in November 2024 via the `x-amz-write-offset-bytes` header,
 returning the resulting size via `x-amz-object-size`, although only for the S3
 Express One Zone storage class in directory buckets.  Dell appends via a
@@ -152,7 +153,7 @@ Express One Zone storage class in directory buckets.  Dell appends via a
 
 ### PUT object byte range
 
-`Range` header on PUT modifies part of an object instead of replacing it:
+Dell `Range` header on PUT modifies part of an object instead of replacing it:
 `bytes=10-14` updates that range, `bytes=10-` overwrites from that offset, and
 `bytes=-1-` atomically appends without knowing the current size.  Responses
 include `x-emc-previous-object-size` and `x-emc-content-md5`.  This differs
@@ -189,7 +190,7 @@ and metageneration instead of the ETag.
 
 ### PUT object copy conditional
 
-`cf-copy-destination-if-match`, `cf-copy-destination-if-none-match`,
+Cloudflare `cf-copy-destination-if-match`, `cf-copy-destination-if-none-match`,
 `cf-copy-destination-if-modified-since`, and
 `cf-copy-destination-if-unmodified-since` headers condition a copy on the
 destination object rather than the source, failing with 412 when unmet.
@@ -198,15 +199,15 @@ destination object rather than the source, failing with 412 when unmet.
 
 ### PUT object copy metadata merge
 
-`x-amz-metadata-directive: MERGE` copies the source metadata and replaces only
-the keys present in the request, unlike the all-or-nothing `COPY` and
-`REPLACE`.
+Cloudflare `x-amz-metadata-directive: MERGE` copies the source metadata and
+replaces only the keys present in the request, unlike the all-or-nothing
+`COPY` and `REPLACE`.
 
 * [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
 
 ### PUT object copy source
 
-`x-goog-copy-source` header names the source object while
+Google `x-goog-copy-source` header names the source object while
 `x-goog-copy-source-generation` selects its version.
 `x-goog-copy-source-if-generation-match` and
 `x-goog-copy-source-if-metageneration-match` condition the copy on the source
@@ -216,17 +217,17 @@ version rather than on its ETag.
 
 ### PUT object create bucket
 
-`cf-create-bucket-if-missing: true` header creates the bucket when it does not
-already exist, avoiding a separate PUT bucket request.  Also applies to
-initiate multipart upload.
+Cloudflare `cf-create-bucket-if-missing: true` header creates the bucket when
+it does not already exist, avoiding a separate PUT bucket request.  Also
+applies to initiate multipart upload.
 
 * [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
 
 ### PUT object extract
 
-`X-Amz-Meta-Snowball-Auto-Extract: true` header unpacks an uploaded tar archive
-into individual objects rather than storing the archive itself.  Minio also
-accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
+Minio `X-Amz-Meta-Snowball-Auto-Extract: true` header unpacks an uploaded tar
+archive into individual objects rather than storing the archive itself.  It
+also accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
 `X-Amz-Meta-Minio-Snowball-Prefix` prefixes the extracted keys,
 `X-Amz-Meta-Minio-Snowball-Ignore-Dirs` skips empty directory objects, and
 `X-Amz-Meta-Minio-Snowball-Ignore-Errors` continues past individual failures.
@@ -235,8 +236,8 @@ accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
 
 ### PUT object symlink
 
-`symlink` subresource creates an object which redirects to another via the
-`x-oss-symlink-target` header, which GET object follows and GET symlink
+Aliyun `symlink` subresource creates an object which redirects to another via
+the `x-oss-symlink-target` header, which GET object follows and GET symlink
 returns.  OSS does not validate that the target exists and symlinks cannot
 point to other symlinks.
 
@@ -244,14 +245,14 @@ point to other symlinks.
 
 ### PUT object unicode metadata
 
-Encodes non-ASCII `x-amz-meta-` keys and values with RFC 2047, which Amazon
-leaves unspecified.
+Cloudflare encodes non-ASCII `x-amz-meta-` keys and values with RFC 2047,
+which Amazon leaves unspecified.
 
 * [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
 
 ### Resumable uploads
 
-Initiate a resumable upload with POST object with the `x-goog-resumable`
+Initiate a Google resumable upload with POST object with the `x-goog-resumable`
 header.  Use the response `Location` to issue a PUT object with given
 Content-Length and Content-Range headers.  Continuing issuing these requests to
 build larger objects.
@@ -260,9 +261,9 @@ build larger objects.
 
 ### Small file archives
 
-Allows interaction with ZIP file contents as if they were objects.  HeadObject,
-GetObject, and ListObjectsV2 support these operations when the header
-`x-minio-extract` has a `true` value.
+Minio allows interaction with ZIP file contents as if they were objects.
+HeadObject, GetObject, and ListObjectsV2 support these operations when the
+header `x-minio-extract` has a `true` value.
 
 * [Minio documentation](https://www.min.io/blog/small-file-archives)
 
