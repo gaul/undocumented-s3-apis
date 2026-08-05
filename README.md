@@ -140,8 +140,14 @@ multipart uploads.
 Append to an existing object at a given offset via the `append` and `position`
 parameters.  Responses include `x-oss-next-append-position` and
 `x-rgw-next-append-position` which indicate the next valid append offset.
+Amazon added this in November 2024 via the `x-amz-write-offset-bytes` header,
+returning the resulting size via `x-amz-object-size`, although only for the S3
+Express One Zone storage class in directory buckets.  Dell appends via a
+`Range` header instead.
 
 * [Aliyun documentation](https://partners-intl.aliyun.com/help/doc-detail/31981.htm?spm=a2c63.p38356.b99.595.5783438dGk)
+* [Amazon append](https://aws.amazon.com/about-aws/whats-new/2024/11/amazon-s3-express-one-zone-append-data-object)
+* [Amazon PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
 * [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/objectops/#append-object)
 
 ### PUT object byte range
