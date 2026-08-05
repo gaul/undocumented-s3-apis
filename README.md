@@ -23,7 +23,7 @@ HEAD bucket exposes the region via `x-amz-bucket-region` even if the request
 lacks authentication.  This allows clients to interrogate a bucket so that they
 can route subsequent requests to the correct endpoint.
 
-### Multipart Upload ETag
+### Multipart upload ETag
 
 Single part upload ETag are the MD5 hash of the object content.  Multipart
 upload ETag concatenate the MD5 of each part, MD5 this data, and append a
@@ -262,7 +262,7 @@ build larger objects.
 ### Small file archives
 
 Minio allows interaction with ZIP file contents as if they were objects.
-HeadObject, GetObject, and ListObjectsV2 support these operations when the
+HEAD object, GET object, and GET bucket support these operations when the
 header `x-minio-extract` has a `true` value.
 
 * [Minio documentation](https://www.min.io/blog/small-file-archives)
