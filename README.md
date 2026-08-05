@@ -20,8 +20,11 @@ individual multipart upload parts, including the original ETag.
 ### HEAD bucket exposes region
 
 HEAD bucket exposes the region via `x-amz-bucket-region` even if the request
-lacks authentication.  This allows clients to interrogate a bucket so that they
-can route subsequent requests to the correct endpoint.
+lacks authentication or targets the wrong endpoint, which allows clients to
+interrogate a bucket and route subsequent requests correctly.  Amazon returns
+this header alongside 301 and 403 responses and now documents the behavior.
+
+* [Amazon HeadBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadBucket.html)
 
 ### Multipart upload ETag
 
