@@ -42,6 +42,16 @@ with object lock or active replication rules.
 
 * [Minio discussion #20367](https://github.com/minio/minio/discussions/20367)
 
+### GET bucket metadata search
+
+`search` (Scality) and `query` (Dell) parameters filter a listing with a
+SQL-like predicate over object metadata instead of only by key prefix.  Dell
+also accepts `attributes`, `sorted`, and `include-older-versions` and requires
+declaring the searchable keys on the bucket.
+
+* [Dell documentation](https://portal.ecstestdrive.com/Document/ECS/3.8/apidocs/S3MetadataSearchOperation_getObjectsList_f8907356ba2c22b312b538e2a72efeb5_ba672412ac371bb6cf4e69291344510e_detail.html)
+* [Scality documentation](https://zenko.readthedocs.io/en/latest/operation/Metadata_Search/Metadata_Search.html)
+
 ### GET bucket unordered
 
 `allow-unordered=true` parameter overrides key sorting which allows higher
