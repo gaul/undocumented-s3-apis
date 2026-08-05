@@ -58,6 +58,17 @@ caller lacks permission to read.
 
 * [Minio SDK documentation](https://pkg.go.dev/github.com/minio/minio-go/v7#ListObjectsOptions)
 
+### GET object media processing
+
+`x-oss-process` (Aliyun), `ci-process` (Tencent), and `x-image-process`
+(Huawei) parameters transform an object while serving it, e.g.,
+`?x-oss-process=image/resize,w_100`.  Aliyun supports only the `image/` and
+`style/` operations via the S3 protocol.
+
+* [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/compatibility-with-amazon-s3)
+* [Huawei documentation](https://support.huaweicloud.com/intl/en-us/fg-obs/obs_01_0670.html)
+* [Tencent documentation](https://www.tencentcloud.com/document/product/436/35280)
+
 ### HEAD bucket extended
 
 Returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
