@@ -82,9 +82,11 @@ caller lacks permission to read.
 ### HEAD bucket extended
 
 Returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
-headers.
+headers.  Newer Ceph returns these only when the request includes the
+`read-stats` parameter, since computing them reads every bucket index shard.
 
 * [Ceph feature #2313](https://tracker.ceph.com/issues/2313)
+* [Ceph pull request #56756](https://github.com/ceph/ceph/pull/56756)
 
 ### PUT object append
 
