@@ -118,6 +118,15 @@ from the `?append&position=` model which Aliyun and Ceph use.
 
 * [Dell documentation](https://portal.ecstestdrive.com/Document/ECS/3.8/apidocs/S3ObjectOperations_createOrUpdateObject_7916bd6f789d0ae0ff39961c0e660d00_ba672412ac371bb6cf4e69291344510e_detail.html)
 
+### PUT object callback
+
+`x-oss-callback` and `x-oss-callback-var` headers carry base64-encoded JSON
+which makes OSS POST to an application server after a successful upload and
+return that server's response to the client instead of its own.  PUT object,
+POST object, and complete multipart upload accept these.
+
+* [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/callback)
+
 ### PUT object conditional
 
 `If-Match` and `If-None-Match` (Ceph) and `x-goog-if-generation-match` and
@@ -171,6 +180,15 @@ accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
 `X-Amz-Meta-Minio-Snowball-Ignore-Errors` continues past individual failures.
 
 * [Minio blog](https://min.io/blog/minio-optimizes-small-objects)
+
+### PUT object symlink
+
+`symlink` subresource creates an object which redirects to another via the
+`x-oss-symlink-target` header, which GET object follows and GET symlink
+returns.  OSS does not validate that the target exists and symlinks cannot
+point to other symlinks.
+
+* [Aliyun documentation](https://www.alibabacloud.com/help/en/oss/developer-reference/putsymlink)
 
 ### PUT object unicode metadata
 
