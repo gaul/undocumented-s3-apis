@@ -79,6 +79,17 @@ caller lacks permission to read.
 * [Huawei documentation](https://support.huaweicloud.com/intl/en-us/fg-obs/obs_01_0670.html)
 * [Tencent documentation](https://www.tencentcloud.com/document/product/436/35280)
 
+### GET service pagination
+
+`cf-prefix`, `cf-start-after`, `cf-continuation-token`, and `cf-max-keys`
+headers paginate the bucket listing and take precedence over the equivalent
+parameters.  Responses include `cf-is-truncated` and
+`cf-next-continuation-token`.  Amazon later added `prefix`,
+`continuation-token`, `max-buckets`, and `bucket-region` parameters but has no
+equivalent of `cf-start-after`.
+
+* [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
+
 ### HEAD bucket extended
 
 Returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
@@ -115,6 +126,31 @@ and metageneration instead of the ETag.
 * [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/generations-preconditions#_XMLAPI)
 * [Tencent documentation](https://www.tencentcloud.com/document/product/436/7749)
 
+### PUT object copy conditional
+
+`cf-copy-destination-if-match`, `cf-copy-destination-if-none-match`,
+`cf-copy-destination-if-modified-since`, and
+`cf-copy-destination-if-unmodified-since` headers condition a copy on the
+destination object rather than the source, failing with 412 when unmet.
+
+* [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
+
+### PUT object copy metadata merge
+
+`x-amz-metadata-directive: MERGE` copies the source metadata and replaces only
+the keys present in the request, unlike the all-or-nothing `COPY` and
+`REPLACE`.
+
+* [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
+
+### PUT object create bucket
+
+`cf-create-bucket-if-missing: true` header creates the bucket when it does not
+already exist, avoiding a separate PUT bucket request.  Also applies to
+initiate multipart upload.
+
+* [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
+
 ### PUT object extract
 
 `X-Amz-Meta-Snowball-Auto-Extract: true` header unpacks an uploaded tar archive
@@ -125,6 +161,13 @@ accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
 `X-Amz-Meta-Minio-Snowball-Ignore-Errors` continues past individual failures.
 
 * [Minio blog](https://min.io/blog/minio-optimizes-small-objects)
+
+### PUT object unicode metadata
+
+Encodes non-ASCII `x-amz-meta-` keys and values with RFC 2047, which Amazon
+leaves unspecified.
+
+* [Cloudflare documentation](https://developers.cloudflare.com/r2/api/s3/extensions/)
 
 ### Resumable uploads
 
