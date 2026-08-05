@@ -36,11 +36,11 @@ hyphen and the number of parts.
 ### DELETE bucket force
 
 `x-minio-force-delete: true` header deletes a bucket and its contents, which
-Minio implements by renaming the bucket rather than deleting each object.
+MinIO implements by renaming the bucket rather than deleting each object.
 Requires the separate `ForceDeleteBucketAction` permission and rejects buckets
 with object lock or active replication rules.
 
-* [Minio discussion #20367](https://github.com/minio/minio/discussions/20367)
+* [MinIO discussion #20367](https://github.com/minio/minio/discussions/20367)
 
 ### GET bucket metadata search
 
@@ -61,12 +61,12 @@ higher performance with large buckets.  Cannot be used with delimiter.
 
 ### GET bucket with metadata
 
-Minio `metadata=true` parameter includes each object's user metadata in the
+MinIO `metadata=true` parameter includes each object's user metadata in the
 listing via `UserMetadata` elements, avoiding a HEAD object request per key.
 It strips internal reserved keys and omits the metadata for objects which the
 caller lacks permission to read.
 
-* [Minio SDK documentation](https://pkg.go.dev/github.com/minio/minio-go/v7#ListObjectsOptions)
+* [MinIO SDK documentation](https://pkg.go.dev/github.com/minio/minio-go/v7#ListObjectsOptions)
 
 ### GET object generation
 
@@ -225,14 +225,14 @@ applies to initiate multipart upload.
 
 ### PUT object extract
 
-Minio `X-Amz-Meta-Snowball-Auto-Extract: true` header unpacks an uploaded tar
+MinIO `X-Amz-Meta-Snowball-Auto-Extract: true` header unpacks an uploaded tar
 archive into individual objects rather than storing the archive itself.  It
 also accepts tar compressed with gzip, bzip2, zstd, lz4, or S2.
-`X-Amz-Meta-Minio-Snowball-Prefix` prefixes the extracted keys,
-`X-Amz-Meta-Minio-Snowball-Ignore-Dirs` skips empty directory objects, and
-`X-Amz-Meta-Minio-Snowball-Ignore-Errors` continues past individual failures.
+`X-Amz-Meta-MinIO-Snowball-Prefix` prefixes the extracted keys,
+`X-Amz-Meta-MinIO-Snowball-Ignore-Dirs` skips empty directory objects, and
+`X-Amz-Meta-MinIO-Snowball-Ignore-Errors` continues past individual failures.
 
-* [Minio blog](https://www.min.io/blog/minio-optimizes-small-objects)
+* [MinIO blog](https://www.min.io/blog/minio-optimizes-small-objects)
 
 ### PUT object symlink
 
@@ -261,15 +261,22 @@ build larger objects.
 
 ### Small file archives
 
-Minio allows interaction with ZIP file contents as if they were objects.
+MinIO allows interaction with ZIP file contents as if they were objects.
 HEAD object, GET object, and GET bucket support these operations when the
-header `x-minio-extract` has a `true` value.
+header `x-minio-extract` has a `true` value.  PUT object extract instead
+unpacks an uploaded archive into separate objects.
 
-* [Minio documentation](https://www.min.io/blog/small-file-archives)
+* [MinIO documentation](https://www.min.io/blog/small-file-archives)
 
 ## References
 
 * [Aliyun API documentation](https://partners-intl.aliyun.com/help/en/doc-detail/31947.htm)
 * [Amazon API documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
 * [Ceph API documentation](https://docs.ceph.com/en/latest/radosgw/s3/)
+* [Cloudflare API documentation](https://developers.cloudflare.com/r2/api/s3/api/)
+* [Dell API documentation](https://portal.ecstestdrive.com/Document/ECS/3.8/apidocs/)
 * [Google API documentation](https://docs.cloud.google.com/storage/docs/xml-api/overview)
+* [Huawei API documentation](https://support.huaweicloud.com/intl/en-us/api-obs/obs_04_0001.html)
+* [MinIO API documentation](https://docs.min.io/aistor/developers/s3-api-compatibility/)
+* [Scality API documentation](https://s3-server.readthedocs.io/en/latest/)
+* [Tencent API documentation](https://www.tencentcloud.com/document/product/436/7751)
