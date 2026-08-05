@@ -40,6 +40,15 @@ performance with large buckets.  Cannot be used with delimiter.
 
 * [Ceph documentation](http://docs.ceph.com/docs/master/radosgw/s3/bucketops/#get-bucket)
 
+### GET bucket with metadata
+
+`metadata=true` parameter includes each object's user metadata in the listing
+via `UserMetadata` elements, avoiding a HEAD object request per key.  Minio
+strips its internal reserved keys and omits the metadata for objects which the
+caller lacks permission to read.
+
+* [Minio SDK documentation](https://pkg.go.dev/github.com/minio/minio-go/v7#ListObjectsOptions)
+
 ### HEAD bucket extended
 
 Returns bucket statistics via `x-rgw-bytes-used` and `x-rgw-object-count`
